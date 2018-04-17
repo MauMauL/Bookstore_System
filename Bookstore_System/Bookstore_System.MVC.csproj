@@ -144,7 +144,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="AutoMapper\AutoMapperConfig.cs" />
+    <Compile Include="AutoMapper\DataTransferObjectToDomainMappingProfile.cs" />
+    <Compile Include="AutoMapper\DomainToDataTransferObjectMappingProfile.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DataTransferObject\LivroDataTransferObject.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,7 +238,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DataTransferObject\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +250,16 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Popper\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bookstore_System.Domain\Bookstore_System.Domain.csproj">
+      <Project>{AA9312D7-08F6-4ADF-8F27-F34E91FF805E}</Project>
+      <Name>Bookstore_System.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bookstore_System.IoC\Bookstore_System.IoC.csproj">
+      <Project>{95631C1C-88A4-4E11-B509-4FCFA1C3FB0F}</Project>
+      <Name>Bookstore_System.IoC</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
