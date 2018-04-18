@@ -1,5 +1,4 @@
-﻿using Bookstore_System.Domain.Interfaces;
-using Bookstore_System.Domain.Interfaces.Repositories;
+﻿using Bookstore_System.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
