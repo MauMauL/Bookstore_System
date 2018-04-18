@@ -1021,6 +1021,7 @@
     <Content Include="Scripts\Popper\popper-utils.js.map" />
     <Content Include="Views\Livro\Index.cshtml" />
     <Content Include="Scripts\Angular\version.json" />
+    <Content Include="Views\Livro\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

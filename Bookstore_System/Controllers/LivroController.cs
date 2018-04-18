@@ -24,10 +24,17 @@ namespace Bookstore_System.MVC.Controllers
             return View();
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
+
         [HttpGet]
         public string RetornaLivros()
         {
-            return JsonConvert.SerializeObject(Mapper.Map<IEnumerable<LIVRO>, IEnumerable<LivroDataTransferObject>>(_LivroAppService.GetAll()));
+            IEnumerable<LivroDataTransferObject> livros = Mapper.Map<IEnumerable<LIVRO>, IEnumerable<LivroDataTransferObject>>(_LivroAppService.GetAll());
+
+            return JsonConvert.SerializeObject(livros);
         }
 
         [HttpPost]
@@ -91,7 +98,7 @@ namespace Bookstore_System.MVC.Controllers
             _livro.NOME = nome;
             _livro.AUTOR = autor;
             _livro.EDITORA = editora;
-            _livro.DATA_LANCAMENTO = Convert.ToDateTime(data_lancamento, CultureInfo.InvariantCulture);
+            _livro.DATA_LANCAMENTO = Convert.ToDateTime(data_lancamento);
 
             _LivroAppService.Update(_livro);
 

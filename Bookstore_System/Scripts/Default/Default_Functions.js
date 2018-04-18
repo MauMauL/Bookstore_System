@@ -6,13 +6,11 @@ function complete_ajax_without_parameters_and_success(type, url, contentType) {
         url: url,
         contentType: contentType,
         beforeSend: function () {
-            //showLoading();
         },
         error: function (e) {
             renderErrorAlert(e.statusText);
         },
         complete: function () {
-            //hideLoading();
         }
     });
 }
@@ -24,13 +22,11 @@ function complete_ajax_with_parameters_without_success(type, url, contentType, p
         contentType: contentType,
         data: parameters,
         beforeSend: function () {
-            //showLoading();
         },
         error: function (e) {
             renderErrorAlert(e.statusText);
         },
         complete: function () {
-            //hideLoading();
         }
     });
 }
@@ -41,13 +37,11 @@ function complete_ajax_with_parameters_without_success_and_content_type(type, ur
         url: url,
         data: parameters,
         beforeSend: function () {
-            //showLoading();
         },
         error: function (e) {
             showError(e.statusText);
         },
         complete: function () {
-            //hideLoading();
         }
     });
 }
