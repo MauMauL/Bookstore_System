@@ -41,7 +41,7 @@ namespace Bookstore_System.Domain.Services
 
         public void Update(TEntity obj)
         {
-            _RepositoryBase.Dispose();
+            _RepositoryBase.Update(obj);
         }
     }
 }

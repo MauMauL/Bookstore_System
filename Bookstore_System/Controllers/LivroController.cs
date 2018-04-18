@@ -55,7 +55,7 @@ namespace Bookstore_System.MVC.Controllers
             _livro.nome = nome;
             _livro.autor = autor;
             _livro.editora = editora;
-            _livro.data_lancamento = Convert.ToDateTime(data_lancamento, CultureInfo.InvariantCulture);
+            _livro.data_lancamento = Convert.ToDateTime(data_lancamento);
 
             _LivroAppService.Add(Mapper.Map<LivroDataTransferObject, LIVRO>(_livro));
 

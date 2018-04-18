@@ -5,7 +5,7 @@
 <script src="~/Scripts/Livro/Index.js"></script>
 
 <div class="modal fade" id="modal_adicionar" tabindex="-1" role="dialog" aria-labelledby="modal_adicionar" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Adicionar Usuário</h5>
@@ -13,7 +13,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">                
+            <div class="modal-body">
                 <div class="col-md-12">
                     <label for="nome">Nome</label>
                     <input type="text" class="form-control" id="nome" />
@@ -43,7 +43,7 @@
 </div>
 
 <div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="modal_editar" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Editar Usuário</h5>
@@ -72,7 +72,6 @@
                     <input type="text" class="form-control" id="data_lancamento_editar" />
                 </div>
             </div>
-            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <button id="botao_editar" type="button" class="btn btn-primary">Atualizar Usuário</button>
@@ -82,16 +81,13 @@
 </div>
 
 <div class="container-fluid" ng-app="app" ng-controller="controller">
-        
-        <div class="container-fluid mt-2">
-            <div id="alerta-sucesso" class="alert alert-success alert-dismissible fade show" role="alert">                
-            </div>
-        </div>    
-    
-        <div id="alerta-erro" class="container-fluid mt-2">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">                                   
-            </div>
-        </div>    
+
+    <div id="alerta-sucesso-container" class="container-fluid mt-2" hidden="hidden">
+    </div>
+
+    <div id="alerta-erro-container" class="container-fluid mt-2" hidden="hidden">
+
+    </div>
     @*<table>
             <thead>
                 <tr>
@@ -107,24 +103,31 @@
             </tbody>
         </table>*@
 
+    <div class="row mb-3 mt-3">
+        <div class="col-sm-12 col-md-1 col-lg-1">
+            <button class="btn btn-success" data-toggle="modal" data-target="#modal_adicionar">Adicionar Usuário</button>
+        </div>
+    </div>
+
     <table class="table table-striped table-dark table-hover">
+        <caption>Lista de Livros</caption>
         <thead>
             <tr>
-                <th></th>
-                <th>Nome</th>
-                <th>Autor</th>
-                <th>Editora</th>
-                <th>Data de Lançamento</th>
-                <th>Ações</th>
+                <th scope="col"></th>
+                <th scope="col">Nome</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Editora</th>
+                <th scope="col">Data de Lançamento</th>
+                <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody id="tabela_livros_body">
             <tr ng-repeat="livro in livros | filter: campo | orderBy: ordemPorNome">
-                <td class="hidden">{{livro.id}}</td>
-                <td>{{livro.nome}}</td>
-                <td>{{livro.autor}}</td>
-                <td>{{livro.editora}}</td>
-                <td>{{livro.data_lancamento}}</td>
+                <td id="id_livro" class="hidden">{{livro.id}}</td>
+                <td id="nome_livro">{{livro.nome}}</td>
+                <td id="autor_livro">{{livro.autor}}</td>
+                <td id="editora_livro">{{livro.editora}}</td>
+                <td id="data_lancamento_livro">{{livro.data_lancamento}}</td>
                 <td>
                     <button id="botao_editar_modal_{{livro.id}}" class="btn btn-primary" data-toggle="modal" data-target="#modal_editar">Editar</button>
                     <button id="botao_remover_{{livro.id}}" class="btn btn-danger">Remover</button>

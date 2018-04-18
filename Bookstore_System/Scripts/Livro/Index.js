@@ -1,16 +1,18 @@
 ﻿var _id_livro;
 
-//angular.module('app', []).controller('controller',
-//    function ($scope, $http) {
-//         $http.get("../Livro/RetornaLivros").then(function (response)
-//         {
-//             $scope.livros = response.data;
-//        });
+angular.module('app', []).controller('controller',
+    function ($scope, $http) {
+         $http.get("../Livro/RetornaLivros").then(function (response)
+         {
+             $scope.livros = response.data;
+        });
 
-//        $scope.orderBy = function (item) {
-//            $scope.ordemPorNome = item;
-//        }
-//    });
+        $scope.orderBy = function (item) {
+            $scope.ordemPorNome = item;
+        }
+    });
+
+
 $(document).ready(function () {
 
     //ListaLivros();
@@ -42,21 +44,25 @@ $(document).ready(function () {
 
 function AdicionaLivro()
 {
-    var _nome = $("#nome").val(), _autor = $("#autor").val(), _editora = $("#editora").val(), _data_nascimento = $("#data_nascimento").val();
+    var _nome = $("#nome").val(), _autor = $("#autor").val(), _editora = $("#editora").val(), _data_lancamento = $("#data_lancamento").val();
 
-    if (VerificaCampos(_nome, _autor, _editora, _data_nascimento))
+    if (VerificaCampos(_nome, _autor, _editora, _data_lancamento))
     {
         complete_ajax_with_parameters_without_success("POST", "../Livro/AdicionaLivro", "application/json;charset=utf-8",
-            JSON.stringify({ nome: _nome, autor: _autor, editora: _editora, data_nascimento: _data_nascimento })).done(function (response) {
+            JSON.stringify({ nome: _nome, autor: _autor, editora: _editora, data_lancamento: _data_lancamento })).done(function (response) {
 
-                var mensagem = JSON.stringify(response);
+                var mensagem = JSON.parse(response);
 
                 if (mensagem) {
+
+                    $("#modal_adicionar").modal("hide");
+
                     if (mensagem.Codigo == 200) {
-                        renderSuccessAlert("#alerta-sucesso", mensagem.Texto);
+
+                        renderSuccessAlert(mensagem.Texto);
                     }
                     else {
-                        renderErrorAlert("#alerta-erro", mensagem.Texto);
+                        renderErrorAlert(mensagem.Texto);
                     }
                 }
 
@@ -64,32 +70,35 @@ function AdicionaLivro()
     }
     else
     {
-        renderErrorAlert("#alerta-erro", "Não é permitido campos vazios.")
+        renderErrorAlert("Não é permitido campos vazios.")
     }
 }
 
 function EditaLivro() {
-    var _nome = $("#nome_editar").val(), _autor = $("#autor_editar").val(), _editora = $("#editora_editar").val(), _data_nascimento = $("#data_nascimento_editar").val();
+    var _nome = $("#nome_editar").val(), _autor = $("#autor_editar").val(), _editora = $("#editora_editar").val(), _data_lancamento = $("#data_lancamento_editar").val();
 
-    if (VerificaCampos(_nome, _autor, _editora, _data_nascimento)) {
+    if (VerificaCampos(_nome, _autor, _editora, _data_lancamento)) {
         complete_ajax_with_parameters_without_success("POST", "../Livro/EditaLivro", "application/json;charset=utf-8",
-            JSON.stringify({ id_livro: _id_livro, nome: _nome, autor: _autor, editora: _editora, data_nascimento: _data_nascimento })).done(function (response) {
+            JSON.stringify({ id_livro: _id_livro, nome: _nome, autor: _autor, editora: _editora, data_lancamento: _data_lancamento })).done(function (response) {
 
-                var mensagem = JSON.stringify(response);
+                var mensagem = JSON.parse(response);
 
                 if (mensagem) {
+
+                    $("#modal_editar").modal("hide");
+
                     if (mensagem.Codigo == 200) {
-                        renderSuccessAlert("#alerta-sucesso", mensagem.Texto);
+                        renderSuccessAlert(mensagem.Texto);
                     }
                     else {
-                        renderErrorAlert("#alerta-erro", mensagem.Texto);
+                        renderErrorAlert(mensagem.Texto);
                     }
                 }
 
             });
     }
     else {
-        renderErrorAlert("#alerta-erro", "Não é permitido campos vazios.")
+        renderErrorAlert("Não é permitido campos vazios.")
     }
 }
 
@@ -97,14 +106,14 @@ function RemoveLivro() {
     complete_ajax_with_parameters_without_success("POST", "../Livro/RemoveLivro", "application/json;charset=utf-8",
         JSON.stringify({ id_livro: _id_livro})).done(function (response) {
 
-            var mensagem = JSON.stringify(response);
+            var mensagem = JSON.parse(response);
 
             if (mensagem) {
                 if (mensagem.Codigo == 200) {
-                    renderSuccessAlert("#alerta-sucesso", mensagem.Texto);
+                    renderSuccessAlert(mensagem.Texto);
                 }
                 else {
-                    renderErrorAlert("#alerta-erro", mensagem.Texto);
+                    renderErrorAlert(mensagem.Texto);
                 }
             }
 
@@ -123,17 +132,24 @@ $(document).on("click", "#botao_editar", function () {
 
 });
 
-$(document).on("click", "#botao_remover", function () {
+$(document).on("click", "[id^=botao_remover_]", function () {
 
-    _id_livro = parseInt($(this).closes("tr").find("#id_livro").text());
+    _id_livro = parseInt($(this).closest("tr").find("#id_livro").text());
 
     RemoveLivro();
 
 });
 
-$(document).on("click", "#botao_editar_modal", function ()
+$(document).on("click", "[id^=botao_editar_modal_]", function ()
 {
-    _id_livro = parseInt($(this).closes("tr").find("#id_livro").text());
+    var row = $(this).closest("tr");
+
+    _id_livro = parseInt(row.find("#id_livro").text());
+
+    $("#nome_editar").val(row.find("#nome_livro").text());
+    $("#autor_editar").val(row.find("#autor_livro").text());
+    $("#editora_editar").val(row.find("#editora_livro").text());
+    $("#data_lancamento_editar").val(row.find("#data_lancamento_livro").text());        
 });
 
 function VerificaCampos(nome, autor, editora, data_lancamento)

@@ -6,13 +6,13 @@ function complete_ajax_without_parameters_and_success(type, url, contentType) {
         url: url,
         contentType: contentType,
         beforeSend: function () {
-            showLoading();
+            //showLoading();
         },
         error: function (e) {
-            showError(e.statusText);
+            renderErrorAlert(e.statusText);
         },
         complete: function () {
-            hideLoading();
+            //hideLoading();
         }
     });
 }
@@ -24,13 +24,13 @@ function complete_ajax_with_parameters_without_success(type, url, contentType, p
         contentType: contentType,
         data: parameters,
         beforeSend: function () {
-            showLoading();
+            //showLoading();
         },
         error: function (e) {
-            showError(e.statusText);
+            renderErrorAlert(e.statusText);
         },
         complete: function () {
-            hideLoading();
+            //hideLoading();
         }
     });
 }
@@ -41,13 +41,13 @@ function complete_ajax_with_parameters_without_success_and_content_type(type, ur
         url: url,
         data: parameters,
         beforeSend: function () {
-            showLoading();
+            //showLoading();
         },
         error: function (e) {
             showError(e.statusText);
         },
         complete: function () {
-            hideLoading();
+            //hideLoading();
         }
     });
 }
@@ -61,21 +61,24 @@ function hideLoading() {
 }
 
 function renderSuccessAlert(text) {
-    $("#").html(
+    $("#alerta-sucesso-container").html(
         `
             <div class="alert alert-success alert-dismissible fade show">
-                <div id="alerta-erro" role="alert">
+                <div id="alerta-sucesso" role="alert">
                   ${text}   
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             </div>`);
+
+    $("#alerta-erro-container").attr("hidden", "hidden");
+    $("#alerta-sucesso-container").removeAttr("hidden");
 }
 
-function renderErrorAlert(component, text)
+function renderErrorAlert(text)
 {
-    $("#").html(
+    $("#alerta-erro-container").html(
         `
             <div class="alert alert-danger alert-dismissible fade show">
                 <div id="alerta-erro" role="alert">
@@ -85,4 +88,7 @@ function renderErrorAlert(component, text)
                     </button>
                 </div>
             </div>`);
+
+    $("#alerta-sucesso-container").attr("hidden", "hidden");
+    $("#alerta-erro-container").removeAttr("hidden");
 }
